@@ -1,0 +1,234 @@
+/* ===== VARIÁVEIS ===== */
+:root {
+    --cor-primaria: #1a73e8;
+    --cor-primaria-hover: #1558b0;
+    --cor-perigo: #e53935;
+    --cor-perigo-hover: #b71c1c;
+    --cor-sucesso: #2e7d32;
+    --cor-fundo: #f0f2f5;
+    --cor-card: #ffffff;
+    --cor-texto: #333333;
+    --cor-borda: #dddddd;
+    --sombra: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --raio: 8px;
+}
+
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+}
+
+/* ===== HEADER ===== */
+header {
+    background-color: var(--cor-primaria);
+    color: white;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--sombra);
+}
+
+header h1 {
+    font-size: 1.4rem;
+}
+
+/* ===== NAVEGAÇÃO ===== */
+nav {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-btn {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 8px 20px;
+    border-radius: var(--raio);
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+}
+
+.nav-btn:hover,
+.nav-btn.ativa {
+    background-color: white;
+    color: var(--cor-primaria);
+    font-weight: bold;
+}
+
+/* ===== MAIN ===== */
+main {
+    max-width: 900px;
+    margin: 32px auto;
+    padding: 0 16px;
+}
+
+/* ===== SEÇÕES ===== */
+.secao {
+    display: none;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.secao.ativa {
+    display: flex;
+}
+
+/* ===== CARD ===== */
+.card {
+    background-color: var(--cor-card);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+    padding: 24px;
+}
+
+.card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    color: var(--cor-primaria);
+    border-bottom: 1px solid var(--cor-borda);
+    padding-bottom: 8px;
+}
+
+/* ===== FORMULÁRIO ===== */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px;
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--cor-primaria);
+}
+
+.form-acoes {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+/* ===== BOTÕES ===== */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--raio);
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+}
+
+.btn-primario {
+    background-color: var(--cor-primaria);
+    color: white;
+}
+
+.btn-primario:hover {
+    background-color: var(--cor-primaria-hover);
+}
+
+.btn-secundario {
+    background-color: var(--cor-borda);
+    color: var(--cor-texto);
+}
+
+.btn-secundario:hover {
+    background-color: #bbb;
+}
+
+.btn-editar {
+    background-color: var(--cor-primaria);
+    color: white;
+    padding: 5px 12px;
+    font-size: 0.85rem;
+}
+
+.btn-editar:hover {
+    background-color: var(--cor-primaria-hover);
+}
+
+.btn-deletar {
+    background-color: var(--cor-perigo);
+    color: white;
+    padding: 5px 12px;
+    font-size: 0.85rem;
+}
+
+.btn-deletar:hover {
+    background-color: var(--cor-perigo-hover);
+}
+
+/* ===== TABELA ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+}
+
+thead {
+    background-color: var(--cor-fundo);
+}
+
+th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--cor-borda);
+    font-size: 0.9rem;
+}
+
+th {
+    font-weight: bold;
+    color: var(--cor-primaria);
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* ===== FEEDBACK ===== */
+.feedback {
+    padding: 10px;
+    border-radius: var(--raio);
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    display: none;
+}
+
+.feedback.sucesso {
+    background-color: #e8f5e9;
+    color: var(--cor-sucesso);
+    border: 1px solid #a5d6a7;
+    display: block;
+}
+
+.feedback.erro {
+    background-color: #ffebee;
+    color: var(--cor-perigo);
+    border: 1px solid #ef9a9a;
+    display: block;
+}
