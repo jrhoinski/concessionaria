@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Concessionária - Sitema de Gestão</title>
 </head>
 <body>
     <header>
         <h1>Concessionária</h1>
         <nav>
-            <button>Marcas</button>
-            <button>Veículos</button>
+            <button class="nav-btn ativa" onclick="mostrarSecao('marcas')">Marcas</button>
+            <button class="nav-btn" onclick="mostrarSecao('veiculos')">Veículos</button>
         </nav>
     </header>
     
@@ -24,14 +25,29 @@
                     <input type="text" id="marca-nome" placeholder="Ex: Toyota">
                 </div>
                 <div class="form-acoes">
-                    <button class="btn btn-primario">Salvar</button>
-                    <button class="btn btn-secundario">Limpar</button>
-                </div>
-                
+                    <button class="btn btn-primario" onclick="salvarMarca()">Salvar</button>
+                    <button class="btn btn-secundario" onclick="limparFormMarca()">Limpar</button>
+                </div>                
             </div>
+
+            <div class="card">
+                <h2>Marcas Cadastradas</h2>
+                <div id="feedback-marcas" class="feedback"></div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-marcas"></tbody>
+                </table>
+            </div>
+
         </section>
     </main>
 
-    
+    <script src="app.js"></script>
 </body>
 </html>
