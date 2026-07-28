@@ -3,7 +3,7 @@ const API = 'http://localhost:8081'; // URL base da API
 // Navagação
 function mostrarSecao(nome) {
     document.querySelectorAll('.secao').forEach(s => s.classList.remove('ativa'));
-    document.querySelectorAll('nav-btn').forEach(b => b.classList.add('ativa'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.add('ativa'));
 
     document.getElementById('secao-' + nome).classList.add('ativa');
     event.target.classList.add('ativa');
