@@ -8,7 +8,10 @@ function mostrarSecao(nome) {
     document.getElementById('secao-' + nome).classList.add('ativa');
     event.target.classList.add('ativa');
 
-    if(nome ==='veiculos') carregarMarcasNoSelect();
+    if(nome ==='veiculos') { 
+        carregarMarcasNoSelect(); 
+        carregarVeiculos(); 
+    }
 }
 
 // Feedback
@@ -91,6 +94,100 @@ function editarMarca(id, nome) {
 function limparFormMarca() {
     document.getElementById('marca-id').value = '';
     document.getElementById('marca-nome').value = '';
+}
+
+// Veículos
+async function carregarMarcasNoSelect() {
+    const res = await fetch(`${API}/marca/listar`);
+    const marcas = await res.json();
+
+    const select = document.getElementById('veiculo-marca');
+    select.innerHTML = '<option value="">Selecione uma marca</option>';
+
+    marcas.forEach(marca => {
+        select.innerHTML += `<option value="${marca.id}">${marca.nome}</option>`;
+    });
+}
+
+async function carregarVeiculos(){
+    const res = await fetch(`${API}/veiculo/listar`);
+    const veiculos = await res.json();
+
+    const tbody = document.getElementById('tabela-veiculos');
+    tbody.innerHTML = '';
+
+    veiculos.forEach(v => {
+        tbody.innerHTML += `
+        <tr>
+            <td>${v.id}</td>
+            <td>${v.modelo}</td>
+            <td>${v.anoFabricacao}</td>
+            <td>${v.marca.nome}</td>            
+            <td>
+                <button class="btn btn-editar" onclick="editarVeiculo(${v.id}, '${v.modelo}', '${v.anoFabricacao}', ${v.marca.id})">Editar</button>
+                <button class="btn btn-deletar" onclick="deletarVeiculo(${v.id})">Deletar</button>
+            </td>
+        </tr>`;
+    });
+}
+
+async function salvarVeiculo(){
+    const id = document.getElementById('veiculo-id').value;
+    const modelo = document.getElementById('veiculo-modelo').value.trim();
+    const anoFabricacao = document.getElementById('veiculo-ano').value.trim();
+    const marcaId = document.getElementById('veiculo-marca').value;
+
+    if(!modelo || !anoFabricacao || !marcaId) {
+        mostrarfeedback('feedback-veiculos', 'Preencha todos os campos.', 'erro');
+        return;
+    }
+
+    const url = id ? `${API}/veiculo/atualizar/${id}` : `${API}/veiculo/novo`;
+    const metodo = id ? 'PUT' : 'POST';
+
+    const res = await fetch(url, {
+        method: metodo,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({modelo, anoFabricacao, marca:{id: parseInt(marcaId)} })
+    });
+
+    if(res.ok) {
+        mostrarfeedback('feedback-veiculos', 'Veículo salvo com sucesso.', 'sucesso');
+        limparFormVeiculo();
+        carregarVeiculos();
+    } else {
+        mostrarfeedback('feedback-veiculos', 'Erro ao salvar veículo.', 'erro');
+    }
+}
+
+async function deletarVeiculo(id) {
+    if(!confirm('Deseja deletar este veículo?')) return;
+
+    const res = await fetch(`${API}/veiculo/deletar/${id}`, {method: 'DELETE'});
+
+    if(res.ok) {
+        mostrarfeedback('feedback-veiculos', 'Veículo deletado com sucesso.', 'sucesso');
+        carregarVeiculos();
+    } else {
+        mostrarfeedback('feedback-veiculos', 'Erro ao deletar veículo.', 'erro');
+    }
+}
+
+async function editarVeiculo(id, modelo, anoFabricacao, marcaId) {
+    document.getElementById('veiculo-id').value = id;
+    document.getElementById('veiculo-modelo').value = modelo;
+    document.getElementById('veiculo-ano').value = anoFabricacao;
+    await carregarMarcasNoSelect();
+    document.getElementById('veiculo-marca').value = marcaId;
+}
+
+function limparFormVeiculo() {
+    document.getElementById('veiculo-id').value = '';
+    document.getElementById('veiculo-modelo').value = '';
+    document.getElementById('veiculo-ano').value = '';
+    document.getElementById('veiculo-marca').value = '';
 }
 
 carregarMarcas();

@@ -46,6 +46,49 @@
             </div>
 
         </section>
+
+
+        <section id="secao-veiculos" class="secao">
+            <div class="card">
+                <h2>Cadastro de Veiculo</h2>
+                <input type="hidden" id="veiculo-id">
+
+                <div class="form-group">
+                    <label for="veiculo-modelo">Modelo</label>
+                    <input type="text" id="veiculo-modelo" placeholder="Ex: Corolla">                    
+                </div>
+                <div class="form-group">
+                    <label for="veiculo-ano">Ano de Fabricação</label>
+                    <input type="text" id="veiculo-ano" placeholder="Ex: 2025">
+                </div>
+                <div class="form-group">
+                    <label for="veiculo-marca">Marca</label>
+                    <select id="veiculo-marca"></select>
+                </div>
+                <div class="form-acoes">
+                    <button class="btn btn-primario" onclick="salvarVeiculo()">Salvar</button>
+                    <button class="btn btn-secundario" onclick="limparFormVeiculo()">Limpar</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Veículos Cadastrados</h2>
+                <div id="feedback-veiculos" class="feedback"></div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Modelo</th>
+                            <th>Ano</th>
+                            <th>Marca</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-veiculos"></tbody>
+                </table>
+            </div>
+            
+        </section>
     </main>
 
     <script src="app.js"></script>
