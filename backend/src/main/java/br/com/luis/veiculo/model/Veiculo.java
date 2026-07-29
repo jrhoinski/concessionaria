@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "veiculo")
 @Data
 @NoArgsConstructor
+// @AllArgsConstructor do Lombok gera um construtor com todos os campos como argumentos
 @AllArgsConstructor
 public class Veiculo {
 
@@ -30,11 +31,14 @@ public class Veiculo {
     @Column(name = "ano_fabricacao")
     private String anoFabricacao;
 
+    // @ManyToOne define o relacionamento: muitos veículos pertencem a uma marca
     @ManyToOne
-    @JoinColumn(name="id_marca", referencedColumnName = "id")
+    // @JoinColumn define a coluna de chave estrangeira na tabela veiculo que referencia a tabela marca
+    @JoinColumn(name = "id_marca", referencedColumnName = "id")
     private Marca marca;
 
-    public Veiculo ( String modelo, String anoFabricacao, Marca marca) {
+    // Construtor personalizado sem o campo id, útil para criar veículos antes de persistir no banco
+    public Veiculo(String modelo, String anoFabricacao, Marca marca) {
         this.modelo = modelo;
         this.anoFabricacao = anoFabricacao;
         this.marca = marca;
