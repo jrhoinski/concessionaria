@@ -1,19 +1,29 @@
-/* ===== VARIÁVEIS ===== */
+/* ===== VARIÁVEIS CSS =====
+   :root define variáveis globais acessíveis em qualquer parte do CSS.
+   Centralizar cores e valores aqui facilita manutenção:
+   para mudar a cor primária do sistema inteiro, basta alterar --cor-primaria aqui.
+   Uso: var(--nome-da-variavel)
+*/
 :root {
-    --cor-primaria: #1a73e8;
-    --cor-primaria-hover: #1558b0;
-    --cor-perigo: #e53935;
-    --cor-perigo-hover: #b71c1c;
-    --cor-sucesso: #2e7d32;
-    --cor-fundo: #f0f2f5;
-    --cor-card: #ffffff;
-    --cor-texto: #333333;
-    --cor-borda: #dddddd;
-    --sombra: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --raio: 8px;
+    --cor-primaria: #1a73e8;          /* Azul principal - botões, títulos, bordas de foco */
+    --cor-primaria-hover: #1558b0;    /* Azul mais escuro para efeito hover */
+    --cor-perigo: #e53935;            /* Vermelho para ações destrutivas (deletar) */
+    --cor-perigo-hover: #b71c1c;      /* Vermelho mais escuro para hover do botão deletar */
+    --cor-sucesso: #2e7d32;           /* Verde para mensagens de sucesso */
+    --cor-fundo: #f0f2f5;             /* Cinza claro de fundo da página */
+    --cor-card: #ffffff;              /* Branco para o fundo dos cards */
+    --cor-texto: #333333;             /* Cinza escuro para textos */
+    --cor-borda: #dddddd;             /* Cinza claro para bordas e separadores */
+    --sombra: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave usada nos cards e header */
+    --raio: 8px;                      /* Arredondamento padrão dos cantos (border-radius) */
 }
 
-/* ===== RESET ===== */
+/* ===== RESET =====
+   Remove margens e paddings padrão do navegador que variam entre Chrome, Firefox, etc.
+   box-sizing: border-box faz com que padding e border sejam incluídos no tamanho total
+   do elemento, evitando comportamentos inesperados de layout.
+   O * aplica para TODOS os elementos da página.
+*/
 * {
     margin: 0;
     padding: 0;
@@ -31,33 +41,36 @@ header {
     background-color: var(--cor-primaria);
     color: white;
     padding: 16px 32px;
+    /* flexbox permite alinhar o título e a navegação lado a lado */
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: center;           /* Alinha verticalmente ao centro */
+    justify-content: space-between; /* Título à esquerda, nav à direita */
     box-shadow: var(--sombra);
 }
 
 header h1 {
-    font-size: 1.4rem;
+    font-size: 1.4rem; /* rem é relativo ao tamanho de fonte raiz do navegador (geralmente 16px) */
 }
 
 /* ===== NAVEGAÇÃO ===== */
 nav {
     display: flex;
-    gap: 8px;
+    gap: 8px; /* Espaço entre os botões do menu */
 }
 
 .nav-btn {
-    background-color: transparent;
+    background-color: transparent; /* Fundo transparente por padrão */
     color: white;
     border: 2px solid white;
     padding: 8px 20px;
     border-radius: var(--raio);
-    cursor: pointer;
+    cursor: pointer;               /* Muda o cursor para mãozinha ao passar sobre o botão */
     font-size: 0.95rem;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s; /* Animação suave de 0.2s ao mudar o fundo */
 }
 
+/* Aplica o mesmo estilo tanto no hover quanto quando o botão tem a classe "ativa"
+   A vírgula separa seletores que recebem o mesmo estilo */
 .nav-btn:hover,
 .nav-btn.ativa {
     background-color: white;
@@ -67,20 +80,24 @@ nav {
 
 /* ===== MAIN ===== */
 main {
-    max-width: 900px;
-    margin: 32px auto;
-    padding: 0 16px;
+    max-width: 900px;   /* Limita a largura máxima do conteúdo */
+    margin: 32px auto;  /* auto nas laterais centraliza horizontalmente */
+    padding: 0 16px;    /* Espaçamento lateral para telas menores */
 }
 
-/* ===== SEÇÕES ===== */
+/* ===== SEÇÕES =====
+   Por padrão todas as seções ficam ocultas com display: none.
+   Quando o JavaScript adiciona a classe "ativa", a seção aparece com display: flex.
+   Este é o mecanismo de navegação entre abas sem recarregar a página.
+*/
 .secao {
-    display: none;
-    flex-direction: column;
-    gap: 24px;
+    display: none;          /* Oculto por padrão */
+    flex-direction: column; /* Empilha os cards verticalmente */
+    gap: 24px;              /* Espaço entre os cards */
 }
 
 .secao.ativa {
-    display: flex;
+    display: flex; /* Torna visível quando o JS adiciona a classe "ativa" */
 }
 
 /* ===== CARD ===== */
@@ -95,14 +112,14 @@ main {
     font-size: 1.1rem;
     margin-bottom: 16px;
     color: var(--cor-primaria);
-    border-bottom: 1px solid var(--cor-borda);
+    border-bottom: 1px solid var(--cor-borda); /* Linha separadora abaixo do título */
     padding-bottom: 8px;
 }
 
 /* ===== FORMULÁRIO ===== */
 .form-group {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Empilha label acima do input */
     gap: 4px;
     margin-bottom: 12px;
 }
@@ -112,19 +129,21 @@ main {
     font-weight: bold;
 }
 
+/* Aplica o mesmo estilo para input e select dentro de .form-group */
 .form-group input,
 .form-group select {
     padding: 10px;
     border: 1px solid var(--cor-borda);
     border-radius: var(--raio);
     font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s;
+    outline: none;                  /* Remove o contorno padrão do navegador ao focar */
+    transition: border-color 0.2s;  /* Animação suave ao focar no campo */
 }
 
+/* :focus é ativado quando o usuário clica ou navega pelo teclado até o campo */
 .form-group input:focus,
 .form-group select:focus {
-    border-color: var(--cor-primaria);
+    border-color: var(--cor-primaria); /* Destaca o campo ativo com a cor primária */
 }
 
 .form-acoes {
@@ -133,7 +152,10 @@ main {
     margin-top: 4px;
 }
 
-/* ===== BOTÕES ===== */
+/* ===== BOTÕES =====
+   .btn define o estilo base compartilhado por todos os botões.
+   As classes específicas (.btn-primario, .btn-deletar, etc.) sobrescrevem apenas cor e tamanho.
+*/
 .btn {
     padding: 10px 20px;
     border: none;
@@ -161,10 +183,11 @@ main {
     background-color: #bbb;
 }
 
+/* Botões menores usados dentro da tabela */
 .btn-editar {
     background-color: var(--cor-primaria);
     color: white;
-    padding: 5px 12px;
+    padding: 5px 12px;   /* Padding menor que o .btn padrão */
     font-size: 0.85rem;
 }
 
@@ -186,18 +209,20 @@ main {
 /* ===== TABELA ===== */
 table {
     width: 100%;
+    /* border-collapse: collapse remove o espaço duplo entre bordas de células adjacentes */
     border-collapse: collapse;
     margin-top: 8px;
 }
 
 thead {
-    background-color: var(--cor-fundo);
+    background-color: var(--cor-fundo); /* Fundo levemente diferente para destacar o cabeçalho */
 }
 
+/* th = célula de cabeçalho, td = célula de dados */
 th, td {
     text-align: left;
     padding: 10px 12px;
-    border-bottom: 1px solid var(--cor-borda);
+    border-bottom: 1px solid var(--cor-borda); /* Linha separadora entre as linhas */
     font-size: 0.9rem;
 }
 
@@ -206,28 +231,33 @@ th {
     color: var(--cor-primaria);
 }
 
+/* :hover na linha inteira melhora a leitura ao passar o mouse */
 tbody tr:hover {
     background-color: #f9f9f9;
 }
 
-/* ===== FEEDBACK ===== */
+/* ===== FEEDBACK =====
+   Por padrão o elemento fica oculto com display: none.
+   O JavaScript adiciona as classes "sucesso" ou "erro" que mudam para display: block,
+   tornando a mensagem visível com a cor e borda correspondente.
+*/
 .feedback {
     padding: 10px;
     border-radius: var(--raio);
     margin-bottom: 12px;
     font-size: 0.9rem;
-    display: none;
+    display: none; /* Oculto até o JS adicionar a classe sucesso ou erro */
 }
 
 .feedback.sucesso {
-    background-color: #e8f5e9;
+    background-color: #e8f5e9; /* Verde bem claro de fundo */
     color: var(--cor-sucesso);
     border: 1px solid #a5d6a7;
     display: block;
 }
 
 .feedback.erro {
-    background-color: #ffebee;
+    background-color: #ffebee; /* Vermelho bem claro de fundo */
     color: var(--cor-perigo);
     border: 1px solid #ef9a9a;
     display: block;

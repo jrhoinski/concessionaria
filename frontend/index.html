@@ -1,8 +1,11 @@
 <!DOCTYPE html>
+<!-- Define o idioma da página como português do Brasil (usado por leitores de tela e navegadores) -->
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <!-- Garante que a página seja responsiva em dispositivos móveis -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Importa o arquivo de estilos CSS externo -->
     <link rel="stylesheet" href="style.css">
     <title>Concessionária - Sitema de Gestão</title>
 </head>
@@ -10,28 +13,44 @@
     <header>
         <h1>Concessionária</h1>
         <nav>
+            <!-- Botões de navegação entre seções -->
+            <!-- A classe "ativa" controla qual botão está destacado via CSS -->
+            <!-- onclick chama a função mostrarSecao() do app.js passando o nome da seção -->
             <button class="nav-btn ativa" onclick="mostrarSecao('marcas')">Marcas</button>
             <button class="nav-btn" onclick="mostrarSecao('veiculos')">Veículos</button>
         </nav>
     </header>
     
     <main>
+        <!-- ==================== SEÇÃO MARCAS ==================== -->
+        <!-- A classe "ativa" faz esta seção aparecer. As demais ficam ocultas via CSS -->
         <section id="secao-marcas" class="secao ativa">
+
+            <!-- Card do formulário de cadastro/edição de marca -->
             <div class="card">
                 <h2>Cadastro de Marca</h2>
+
+                <!-- Campo hidden armazena o id da marca quando estamos editando -->
+                <!-- Se estiver vazio, o app.js entende que é um cadastro novo (POST) -->
+                <!-- Se tiver valor, entende que é uma edição (PUT) -->
                 <input type="hidden" id="marca-id">
+
                 <div class="form-group">
+                    <!-- label com "for" associa o texto ao input pelo id, melhorando acessibilidade -->
                     <label for="marca-nome">Nome da Marca</label>
                     <input type="text" id="marca-nome" placeholder="Ex: Toyota">
                 </div>
+
                 <div class="form-acoes">
                     <button class="btn btn-primario" onclick="salvarMarca()">Salvar</button>
                     <button class="btn btn-secundario" onclick="limparFormMarca()">Limpar</button>
-                </div>                
+                </div>
             </div>
 
+            <!-- Card da tabela de marcas cadastradas -->
             <div class="card">
                 <h2>Marcas Cadastradas</h2>
+                <!-- Área onde mensagens de sucesso/erro são exibidas temporariamente pelo app.js -->
                 <div id="feedback-marcas" class="feedback"></div>
                 <table>
                     <thead>
@@ -41,38 +60,49 @@
                             <th>Ações</th>
                         </tr>
                     </thead>
+                    <!-- tbody é preenchido dinamicamente pelo app.js via carregarMarcas() -->
                     <tbody id="tabela-marcas"></tbody>
                 </table>
             </div>
 
         </section>
 
-
+        <!-- ==================== SEÇÃO VEÍCULOS ==================== -->
+        <!-- Sem a classe "ativa", esta seção começa oculta -->
         <section id="secao-veiculos" class="secao">
+
+            <!-- Card do formulário de cadastro/edição de veículo -->
             <div class="card">
                 <h2>Cadastro de Veiculo</h2>
+                <!-- Campo hidden para armazenar o id do veículo durante edição -->
                 <input type="hidden" id="veiculo-id">
 
                 <div class="form-group">
                     <label for="veiculo-modelo">Modelo</label>
-                    <input type="text" id="veiculo-modelo" placeholder="Ex: Corolla">                    
+                    <input type="text" id="veiculo-modelo" placeholder="Ex: Corolla">
                 </div>
+
                 <div class="form-group">
                     <label for="veiculo-ano">Ano de Fabricação</label>
                     <input type="text" id="veiculo-ano" placeholder="Ex: 2025">
                 </div>
+
                 <div class="form-group">
                     <label for="veiculo-marca">Marca</label>
+                    <!-- Select preenchido dinamicamente pelo app.js via carregarMarcasNoSelect() -->
                     <select id="veiculo-marca"></select>
                 </div>
+
                 <div class="form-acoes">
                     <button class="btn btn-primario" onclick="salvarVeiculo()">Salvar</button>
                     <button class="btn btn-secundario" onclick="limparFormVeiculo()">Limpar</button>
                 </div>
             </div>
 
+            <!-- Card da tabela de veículos cadastrados -->
             <div class="card">
                 <h2>Veículos Cadastrados</h2>
+                <!-- Área de feedback para mensagens de sucesso/erro -->
                 <div id="feedback-veiculos" class="feedback"></div>
                 <table>
                     <thead>
@@ -84,13 +114,15 @@
                             <th>Ações</th>
                         </tr>
                     </thead>
+                    <!-- tbody preenchido dinamicamente pelo app.js via carregarVeiculos() -->
                     <tbody id="tabela-veiculos"></tbody>
                 </table>
             </div>
-            
+
         </section>
     </main>
 
+    <!-- Script carregado no final do body para garantir que o HTML já foi carregado antes do JS executar -->
     <script src="app.js"></script>
 </body>
 </html>
